@@ -1,6 +1,10 @@
 package com.example.weatherapp.viewmodel
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
+import android.arch.lifecycle.MutableLiveData
+import com.example.weatherapp.model.City
+import com.example.weatherapp.model.CityWeather
+import com.example.weatherapp.repository.Repository
 import org.junit.After
 import org.junit.Before
 
@@ -8,23 +12,35 @@ import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
+import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.Mockito
+import org.mockito.junit.MockitoJUnit
+import org.mockito.junit.MockitoJUnitRunner
 
+@RunWith(MockitoJUnitRunner::class)
 class WeatherViewModelTest {
+//    @get:Rule
+//    val mockitoRule = MockitoJUnit.rule()
 
+    @get:Rule
+    var rule: TestRule = InstantTaskExecutorRule()
+
+    private val cityName = "Leicester"
     private val correctLongitude = -1.07953
     private val incorrectLongitude = 1212.0
     private val correctLatitude = 52.64003
     private val incorrectLatitude = 1212.0
 
-    @get:Rule
-    var rule: TestRule = InstantTaskExecutorRule()
-
+    @Mock
+    lateinit var repository: Repository
 
     lateinit var viewModel: WeatherViewModel
 
+
     @Before
     fun setUp() {
-        viewModel = WeatherViewModel()
+        viewModel = WeatherViewModel(repository)
 
     }
 
@@ -58,8 +74,39 @@ class WeatherViewModelTest {
 
     //Test5 : test a correct city is returned for the correct responding Longitude & Latitude
     @Test
-    fun testDisplaysErrorForIncorrectUsernameAndPassword(){
-        viewModel.getWeatherLocation(correctLatitude,correctLongitude)
-        assertEquals("Leicester",viewModel.getLoginResultData().value.city.name)
+    fun testDisplaysLeicesterWeatherForGivenLongitudeLatitude(){
+
+        val testData = CityWeather()
+        val cityData = City()
+        cityData.name = cityName
+        cityData.country = "GB"
+        testData.city = cityData
+
+        val resultData = MutableLiveData<CityWeather>()
+        resultData.postValue(testData)
+
+        Mockito.`when`(repository.getWeatherResultData()).thenReturn(resultData)
+
+        viewModel.getWeatherLocation(correctLatitude.toString(),correctLongitude.toString())
+        assertEquals(cityName,viewModel.getWeatherResultData().value?.city?.name)
+    }
+
+    //Test6 : test a correct city is returned for the correct responding Longitude & Latitude
+    @Test
+    fun testDisplaysLeicesterWeatherForGivenCityName(){
+
+        val testData = CityWeather()
+        val cityData = City()
+        cityData.name = cityName
+        cityData.country = "GB"
+        testData.city = cityData
+
+        val resultData = MutableLiveData<CityWeather>()
+        resultData.postValue(testData)
+
+        Mockito.`when`(repository.getWeatherResultData()).thenReturn(resultData)
+
+        viewModel.getWeatherCity(cityName)
+        assertEquals(cityName,viewModel.getWeatherResultData().value?.city?.name)
     }
 }
