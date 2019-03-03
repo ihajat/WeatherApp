@@ -8,7 +8,9 @@ import com.example.weatherapp.utils.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detailed_weather.*
 import kotlinx.android.synthetic.main.weather_card.*
-import java.util.*
+import java.util.Date
+import java.util.GregorianCalendar
+import java.util.Calendar
 
 class DetailedWeatherActivity : AppCompatActivity() {
     private lateinit var cityWeather: CityWeather
@@ -33,7 +35,7 @@ class DetailedWeatherActivity : AppCompatActivity() {
         textViewCardMaxTemp.text = cityWeather.weeklyWeather.get(0).temp.max.formatCelcius()
         textViewCardMinTemp.text = cityWeather.weeklyWeather.get(0).temp.min.formatCelcius()
         textViewHumidity.text = cityWeather.weeklyWeather.get(0).humidity.formatHumidity()
-        textViewWind.text =  cityWeather.weeklyWeather.get(0).speed.formatSpeed()
+        textViewWind.text = cityWeather.weeklyWeather.get(0).speed.formatSpeed()
         textViewCloudiness.text = cityWeather.weeklyWeather.get(0).clouds.formatClouds()
         textViewPressure.text = cityWeather.weeklyWeather.get(0).pressure.formatPressure()
 
@@ -93,8 +95,6 @@ class DetailedWeatherActivity : AppCompatActivity() {
                 else -> {
                 }
             }
-
         }
-
     }
 }

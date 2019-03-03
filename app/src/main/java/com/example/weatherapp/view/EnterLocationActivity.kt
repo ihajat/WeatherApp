@@ -15,7 +15,6 @@ import com.example.weatherapp.model.CityWeather
 import com.example.weatherapp.viewmodel.ViewModelFactory
 import com.example.weatherapp.viewmodel.WeatherViewModel
 
-
 class EnterLocationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,30 +26,28 @@ class EnterLocationActivity : AppCompatActivity() {
         )
 
         var viewModel = ViewModelProviders.of(this, ViewModelFactory(this)).get(WeatherViewModel::class.java)
-        viewModel.getWeatherResultData().observe(this, Observer{
+        viewModel.getWeatherResultData().observe(this, Observer {
             onSuccess(it)
         })
 
         activityMainBinding.model = viewModel
 
-        activityMainBinding!!.handler = object: Handler {
+        activityMainBinding!!.handler = object : Handler {
             override fun getWeatherLocation() {
                 var latitude = activityMainBinding.latitude.text.toString()
                 var longitude = activityMainBinding.longitude.text.toString()
-                viewModel.getWeatherLocation(latitude,longitude)
+                viewModel.getWeatherLocation(latitude, longitude)
             }
 
             override fun getWeatherCity() {
                 var city = activityMainBinding.city.text.toString()
                 viewModel.getWeatherCity(city)
             }
-
         }
-
     }
 
     private fun onSuccess(cityWeather: CityWeather?) {
-        Toast.makeText(this, "retrieved weather for ${cityWeather?.city}", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "retrieved weather for ${cityWeather?.city}", Toast.LENGTH_SHORT).show()
 
         val intent = Intent(this@EnterLocationActivity, DetailedWeatherActivity::class.java)
         val options = ActivityOptions.makeSceneTransitionAnimation(

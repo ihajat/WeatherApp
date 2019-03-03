@@ -6,16 +6,14 @@ import com.example.weatherapp.model.City
 import com.example.weatherapp.model.CityWeather
 import com.example.weatherapp.repository.Repository
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Before
-
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
-import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -37,44 +35,42 @@ class WeatherViewModelTest {
 
     lateinit var viewModel: WeatherViewModel
 
-
     @Before
     fun setUp() {
         viewModel = WeatherViewModel(repository)
-
     }
 
     @After
     fun tearDown() {
     }
 
-    //Test1 : test a correct Longitude
+    // Test1 : test a correct Longitude
     @Test
-    fun testCorrectLongitude(){
-        assertEquals(viewModel.validateLongitude(correctLongitude),true)
+    fun testCorrectLongitude() {
+        assertEquals(viewModel.validateLongitude(correctLongitude), true)
     }
 
-    //Test2 : test a incorrect Longitude
+    // Test2 : test a incorrect Longitude
     @Test
-    fun testIncorrectLongitude(){
-        assertEquals(viewModel.validateLongitude(incorrectLongitude),false)
+    fun testIncorrectLongitude() {
+        assertEquals(viewModel.validateLongitude(incorrectLongitude), false)
     }
 
-    //Test3 : test a correct Latitude
+    // Test3 : test a correct Latitude
     @Test
-    fun testCorrectLatitude(){
-        assertEquals(viewModel.validateLatitude(correctLongitude),true)
+    fun testCorrectLatitude() {
+        assertEquals(viewModel.validateLatitude(correctLongitude), true)
     }
 
-    //Test4 : test a incorrect Latitude
+    // Test4 : test a incorrect Latitude
     @Test
-    fun testIncorrectLatitude(){
-        assertEquals(viewModel.validateLatitude(incorrectLongitude),false)
+    fun testIncorrectLatitude() {
+        assertEquals(viewModel.validateLatitude(incorrectLongitude), false)
     }
 
-    //Test5 : test a correct city is returned for the correct responding Longitude & Latitude
+    // Test5 : test a correct city is returned for the correct responding Longitude & Latitude
     @Test
-    fun testDisplaysLeicesterWeatherForGivenLongitudeLatitude(){
+    fun testDisplaysLeicesterWeatherForGivenLongitudeLatitude() {
 
         val testData = CityWeather()
         val cityData = City()
@@ -87,13 +83,13 @@ class WeatherViewModelTest {
 
         Mockito.`when`(repository.getWeatherResultData()).thenReturn(resultData)
 
-        viewModel.getWeatherLocation(correctLatitude.toString(),correctLongitude.toString())
-        assertEquals(cityName,viewModel.getWeatherResultData().value?.city?.name)
+        viewModel.getWeatherLocation(correctLatitude, correctLongitude)
+        assertEquals(cityName, viewModel.getWeatherResultData().value?.city?.name)
     }
 
-    //Test6 : test a correct city is returned for the correct responding Longitude & Latitude
+    // Test6 : test a correct city is returned for the correct responding Longitude & Latitude
     @Test
-    fun testDisplaysLeicesterWeatherForGivenCityName(){
+    fun testDisplaysLeicesterWeatherForGivenCityName() {
 
         val testData = CityWeather()
         val cityData = City()
@@ -107,6 +103,6 @@ class WeatherViewModelTest {
         Mockito.`when`(repository.getWeatherResultData()).thenReturn(resultData)
 
         viewModel.getWeatherCity(cityName)
-        assertEquals(cityName,viewModel.getWeatherResultData().value?.city?.name)
+        assertEquals(cityName, viewModel.getWeatherResultData().value?.city?.name)
     }
 }

@@ -14,41 +14,61 @@ class WeatherViewModel(val repository: Repository) : ViewModel() {
     private val df = DecimalFormat("#.######")
 
     var city = ObservableField("")
-    var latitude= ObservableField("")
-    var longitude= ObservableField("")
+    var latitude = ObservableField("")
+    var longitude = ObservableField("")
 
     fun getWeatherResultData(): MutableLiveData<CityWeather> {
         return repository.getWeatherResultData()
     }
 
-    fun validateLongitude(longitudeToTest: Double ): Boolean {
-        try{
+    fun validateLongitude(longitudeToTest: Double): Boolean {
+        try {
             return df.format(longitudeToTest).matches(LONGITUDE_PATTERN.toRegex())
-        }
-        catch (ex: IllegalArgumentException ){
+        } catch (ex: IllegalArgumentException) {
             return false
         }
         return false
     }
 
-    fun validateLatitude(latitudeToTest: Double ): Boolean {
-        try{
+    fun validateLatitude(latitudeToTest: Double): Boolean {
+        try {
             return df.format(latitudeToTest).matches(LATITUDE_PATTERN.toRegex())
-        }
-        catch (ex: IllegalArgumentException ){
+        } catch (ex: IllegalArgumentException) {
             return false
         }
         return false
+    }
+
+    fun validateLocation(latitudeToTest: Double, _longitude: Double): Boolean{
+        return validateLatitude(latitudeToTest) && validateLongitude(_longitude)
+    }
+
+    fun validateCity(): Boolean{
+        //TODO
+        return true
     }
 
     fun getWeatherCity(_city: String) {
-        city.set(_city)
-        repository.getWeatherCity(_city)
+        if(validateCity()){
+            city.set(_city)
+            repository.getWeatherCity(_city)
+        }
+        else
+        {
+          //  TODO // implement incorrect input
+        }
     }
 
-    fun getWeatherLocation( _latitute: String, _longitude: String) {
-        latitude.set(_latitute)
-        longitude.set(_longitude)
-        repository.getWeatherLocation(_latitute,_longitude)
+    fun getWeatherLocation(_latitute: Double, _longitude: Double) {
+        if(validateLocation(_latitute,_longitude)){
+            latitude.set(_latitute.toString())
+            longitude.set(_longitude.toString())
+            repository.getWeatherLocation(_latitute.toString(), _longitude.toString())
+        }
+        else
+        {
+           // TODO // implement incorrect input
+        }
+
     }
 }

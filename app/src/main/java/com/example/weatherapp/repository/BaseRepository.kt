@@ -4,7 +4,7 @@ import com.example.weatherapp.di.DaggerRepositoryInjector
 import com.example.weatherapp.di.NetworkModule
 import com.example.weatherapp.di.RepositoryInjector
 
-abstract class BaseRepository  {
+abstract class BaseRepository {
     private val injector: RepositoryInjector = DaggerRepositoryInjector
         .builder()
         .networkModule(NetworkModule)

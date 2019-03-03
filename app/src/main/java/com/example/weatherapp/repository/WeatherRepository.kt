@@ -8,7 +8,7 @@ import retrofit2.Call
 import retrofit2.Response
 import javax.inject.Inject
 
-class WeatherRepository: Repository, BaseRepository() {
+class WeatherRepository : Repository, BaseRepository() {
 
     @Inject
     lateinit var apiService: WeatherServices
@@ -22,13 +22,13 @@ class WeatherRepository: Repository, BaseRepository() {
     override fun getWeatherCity(cityName: String) {
         val loginCall = apiService.getWeatherCity(cityName, KEY, "metric", 6)
 
-        loginCall.enqueue(object: retrofit2.Callback<CityWeather>{
+        loginCall.enqueue(object : retrofit2.Callback<CityWeather> {
             override fun onFailure(call: Call<CityWeather>, t: Throwable) {
                 TODO("not implemented")
             }
 
             override fun onResponse(call: Call<CityWeather>, response: Response<CityWeather>) {
-                resultData.value=response.body()
+                resultData.value = response.body()
             }
         })
     }
@@ -36,14 +36,13 @@ class WeatherRepository: Repository, BaseRepository() {
     override fun getWeatherLocation(lat: String, lon: String) {
         val loginCall = apiService.getWeatherLocation(lat, lon, KEY, "metric", 6)
 
-        loginCall.enqueue(object: retrofit2.Callback<CityWeather>{
+        loginCall.enqueue(object : retrofit2.Callback<CityWeather> {
             override fun onFailure(call: Call<CityWeather>, t: Throwable) {
                 TODO("not implemented")
             }
 
             override fun onResponse(call: Call<CityWeather>, response: Response<CityWeather>) {
-                resultData.value=response.body()
-
+                resultData.value = response.body()
             }
         })
     }

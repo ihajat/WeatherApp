@@ -5,6 +5,6 @@ import com.example.weatherapp.model.CityWeather
 
 interface Repository {
     fun getWeatherCity(city: String)
-    fun getWeatherLocation( latitute: String, longitude: String)
+    fun getWeatherLocation(latitute: String, longitude: String)
     fun getWeatherResultData(): MutableLiveData<CityWeather>
 }
