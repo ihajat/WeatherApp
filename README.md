@@ -12,3 +12,5 @@ A simple Weather App
 8. I have called the Dagger component interface, RepositoryInjector, since, its main task, currently, is to have multiple repositories access the 
 networking services, instead of the usual naming convention of networkcomponent. I hope that wasn’t confusing. Each time we introduce a new Repository, it is added to this file.
 9. Mockito 2 is able to mock it all,but it is experimental, and requires a manual activation.A textfile, called org.mockito.plugins.MockMaker, in the test/resources/mockito-extensions folder.
+10. Allows longitude and latitude or city name to retrieve weather data from the service.
+11. 5 day forecast is available at any location or city. It includes weather data every 3 hours. Forecast is available in JSON or XML format.
