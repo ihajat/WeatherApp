@@ -19,8 +19,8 @@ class WeatherRepository: Repository, BaseRepository() {
         return resultData
     }
 
-    override fun getWeatherCity(_city: String) {
-        val loginCall = apiService.getWeatherCity(_city, KEY, "metric", 6)
+    override fun getWeatherCity(cityName: String) {
+        val loginCall = apiService.getWeatherCity(cityName, KEY, "metric", 6)
 
         loginCall.enqueue(object: retrofit2.Callback<CityWeather>{
             override fun onFailure(call: Call<CityWeather>, t: Throwable) {
@@ -33,8 +33,8 @@ class WeatherRepository: Repository, BaseRepository() {
         })
     }
 
-    override fun getWeatherLocation(_latitute: String, _longitude: String) {
-        val loginCall = apiService.getWeatherLocation(_latitute, _longitude, KEY, "metric", 6)
+    override fun getWeatherLocation(lat: String, lon: String) {
+        val loginCall = apiService.getWeatherLocation(lat, lon, KEY, "metric", 6)
 
         loginCall.enqueue(object: retrofit2.Callback<CityWeather>{
             override fun onFailure(call: Call<CityWeather>, t: Throwable) {

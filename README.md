@@ -14,11 +14,14 @@ networking services, instead of the usual naming convention of networkcomponent.
 9. Mockito 2 is able to mock it all,but it is experimental, and requires a manual activation.A textfile, called org.mockito.plugins.MockMaker, in the test/resources/mockito-extensions folder.
 10. Allows longitude and latitude or city name to retrieve weather data from the service.
 11. 5 day forecast is available at any location or city. It includes weather data every 3 hours. Forecast is available in JSON or XML format.
-12. Uses clear code, separation of concern: MVVM with a data repository layer and livedata to allow loose coupling.
+12. Uses clean code principles, separation of concern: MVVM with a data repository layer and livedata to allow loose coupling.
+13. Extension functions to allow code reuse for formatting text.
 
 TODO:
 
 1. Improve the input location/city UI screen.
+2. Remove hard coded resources
+3. Centralized the dependency versions of libraries inside the main project build gradle file, but isn't completed.
 
 RECOMMENDATIONS:
 

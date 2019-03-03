@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.example.weatherapp.R
 import com.example.weatherapp.model.CityWeather
-import com.example.weatherapp.utils.IconProvider
+import com.example.weatherapp.utils.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detailed_weather.*
 import kotlinx.android.synthetic.main.weather_card.*
@@ -25,36 +25,17 @@ class DetailedWeatherActivity : AppCompatActivity() {
         setCardData()
     }
 
-    private fun toCelcius(input: Float): String {
-        return input.toInt().toString() + "°C"
-    }
-
-    private fun toHumidity(input: Float): String {
-        return input.toInt().toString() + "%"
-    }
-    private fun toClouds(input: Float): String {
-        return input.toInt().toString() + "%"
-    }
-
-    private fun toSpeed(input: Float): String {
-        return input.toInt().toString() + " m/s"
-    }
-
-    private fun toPressure(input: Float): String {
-        return input.toInt().toString() + " hPa"
-    }
-
     private fun setCardData() {
 
         textViewCardCityName.text = "${cityWeather.city.name} , ${cityWeather.city.country}"
         textViewCardWeatherDescription.text = cityWeather.weeklyWeather.get(0).weatherDetails.get(0).longDescription
-        textViewCardCurrentTemp.text = toCelcius(cityWeather.weeklyWeather.get(0).temp.day)
-        textViewCardMaxTemp.text = toCelcius(cityWeather.weeklyWeather.get(0).temp.max)
-        textViewCardMinTemp.text = toCelcius(cityWeather.weeklyWeather.get(0).temp.min)
-        textViewHumidity.text = toHumidity(cityWeather.weeklyWeather.get(0).humidity)
-        textViewWind.text = toSpeed(cityWeather.weeklyWeather.get(0).speed)
-        textViewCloudiness.text = toHumidity(cityWeather.weeklyWeather.get(0).clouds)
-        textViewPressure.text = toPressure(cityWeather.weeklyWeather.get(0).pressure)
+        textViewCardCurrentTemp.text = cityWeather.weeklyWeather.get(0).temp.day.formatCelcius()
+        textViewCardMaxTemp.text = cityWeather.weeklyWeather.get(0).temp.max.formatCelcius()
+        textViewCardMinTemp.text = cityWeather.weeklyWeather.get(0).temp.min.formatCelcius()
+        textViewHumidity.text = cityWeather.weeklyWeather.get(0).humidity.formatHumidity()
+        textViewWind.text =  cityWeather.weeklyWeather.get(0).speed.formatSpeed()
+        textViewCloudiness.text = cityWeather.weeklyWeather.get(0).clouds.formatClouds()
+        textViewPressure.text = cityWeather.weeklyWeather.get(0).pressure.formatPressure()
 
         val weatherDescription = cityWeather.weeklyWeather.get(0).weatherDetails.get(0).shotDescription
         Picasso.with(this).load(IconProvider.getImageIcon(weatherDescription)).into(imageViewCardWeatherIcon)
@@ -74,40 +55,40 @@ class DetailedWeatherActivity : AppCompatActivity() {
                     weatherWeekDescription =
                         cityWeather.weeklyWeather.get(i).weatherDetails.get(0).shotDescription
                     Picasso.with(this).load(IconProvider.getImageIcon(weatherWeekDescription)).into(imageViewDay1)
-                    textViewMaxTempDay1.text = toCelcius(cityWeather.weeklyWeather.get(i).temp.max)
-                    textViewMinTempDay1.text = toCelcius(cityWeather.weeklyWeather.get(i).temp.min)
+                    textViewMaxTempDay1.text = cityWeather.weeklyWeather.get(i).temp.max.formatCelcius()
+                    textViewMinTempDay1.text = cityWeather.weeklyWeather.get(i).temp.min.formatCelcius()
                 }
                 2 -> {
                     textViewDay2.setText(day)
                     weatherWeekDescription =
                         cityWeather.weeklyWeather.get(i).weatherDetails.get(0).shotDescription
                     Picasso.with(this).load(IconProvider.getImageIcon(weatherWeekDescription)).into(imageViewDay2)
-                    textViewMaxTempDay2.text = toCelcius(cityWeather.weeklyWeather.get(i).temp.max)
-                    textViewMinTempDay2.text = toCelcius(cityWeather.weeklyWeather.get(i).temp.min)
+                    textViewMaxTempDay2.text = cityWeather.weeklyWeather.get(i).temp.max.formatCelcius()
+                    textViewMinTempDay2.text = cityWeather.weeklyWeather.get(i).temp.min.formatCelcius()
                 }
                 3 -> {
                     textViewDay3.setText(day)
                     weatherWeekDescription =
                         cityWeather.weeklyWeather.get(i).weatherDetails.get(0).shotDescription
                     Picasso.with(this).load(IconProvider.getImageIcon(weatherWeekDescription)).into(imageViewDay3)
-                    textViewMaxTempDay3.text = toCelcius(cityWeather.weeklyWeather.get(i).temp.max)
-                    textViewMinTempDay3.text = toCelcius(cityWeather.weeklyWeather.get(i).temp.min)
+                    textViewMaxTempDay3.text = cityWeather.weeklyWeather.get(i).temp.max.formatCelcius()
+                    textViewMinTempDay3.text = cityWeather.weeklyWeather.get(i).temp.min.formatCelcius()
                 }
                 4 -> {
                     textViewDay4.setText(day)
                     weatherWeekDescription =
                         cityWeather.weeklyWeather.get(i).weatherDetails.get(0).shotDescription
                     Picasso.with(this).load(IconProvider.getImageIcon(weatherWeekDescription)).into(imageViewDay4)
-                    textViewMaxTempDay4.text = toCelcius(cityWeather.weeklyWeather.get(i).temp.max)
-                    textViewMinTempDay4.text = toCelcius(cityWeather.weeklyWeather.get(i).temp.min)
+                    textViewMaxTempDay4.text = cityWeather.weeklyWeather.get(i).temp.max.formatCelcius()
+                    textViewMinTempDay4.text = cityWeather.weeklyWeather.get(i).temp.min.formatCelcius()
                 }
                 5 -> {
                     textViewDay5.setText(day)
                     weatherWeekDescription =
                         cityWeather.weeklyWeather.get(i).weatherDetails.get(0).shotDescription
                     Picasso.with(this).load(IconProvider.getImageIcon(weatherWeekDescription)).into(imageViewDay5)
-                    textViewMaxTempDay5.text = toCelcius(cityWeather.weeklyWeather.get(i).temp.max)
-                    textViewMinTempDay5.text = toCelcius(cityWeather.weeklyWeather.get(i).temp.min)
+                    textViewMaxTempDay5.text = cityWeather.weeklyWeather.get(i).temp.max.formatCelcius()
+                    textViewMinTempDay5.text = cityWeather.weeklyWeather.get(i).temp.min.formatCelcius()
                 }
                 else -> {
                 }
